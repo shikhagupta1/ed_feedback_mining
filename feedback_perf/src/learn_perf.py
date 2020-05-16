@@ -1,6 +1,28 @@
 '''
 @author Harshit
 
+CSE544 Spring 2020 Project
+Motivation: MIINIG SCHOOL FEEDBACK INFORMATION TO GENRATE INSIGHTS
+    FOR SDG 4
+Task: Predict Performances in Subject based on students feeb_backs
+Approach:
+    - collect feed_backs for all available years, stored on HDFS
+    - Merge all years data to a single pyspark DATAFRAME
+    - REMOVE columns with less than 2 distinct values
+    - FILL null values with median in feedback and mean in scores
+    - STANDARDIZE All variables
+    - Train a deep NN in tensorflow (distributed)
+        a) MIRRORED - single node multi-gpu, synchronous all reduce,
+            each gpu have their parameter and update each other synchronously
+        b) MULTIMIRRORED - multi node multi-gpu, synchronous all reduce,
+            each node communicate with each other in round-robin fashion,
+            using RPCs [IMPLEMENTED THIS, BUT unable to use, due to lack of resources]
+    - Ouput the tensorboard graph
+Data Pipeline and algo used
+    - PySpark - used dataframe context instead of older RDD context
+    - HDFS - repliction factor=3
+    - Tensorflow - distributed mirrored strategy
+    - Deep Learning
 '''
 
 from pyspark.sql import *
